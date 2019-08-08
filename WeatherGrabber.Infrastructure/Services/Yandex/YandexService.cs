@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using WeatherGrabber.Domain.Models;
 using WeatherGrabber.Infrastructure.Services.Yandex.Pages;
 
 namespace WeatherGrabber.Infrastructure.Services.Yandex
@@ -13,16 +12,6 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
     {
         private Uri _baseUri = new Uri("https://yandex.ru/");
 
-        public List<Domain.Models.City> GetCities()
-        {
-            return null;
-        }
-
-        public Domain.Models.Weather GetWeather(string url)
-        {
-            return null;
-        }
-
         public async Task<IEnumerable<Domain.Models.City>> GetCitiesAsync()
         {
             var url = new Uri(_baseUri,"pogoda/");
@@ -30,7 +19,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
             await mainPage.LoadPageAsync();
 
             var siteCities = mainPage.GetCities();
-            var cities = siteCities.Select(c => new Domain.Models.City {Name = c.Name, WeatherUrl = c.Href}).ToList();
+            var cities = siteCities.Select(c => new Domain.Models.City(c.Name, c.Href)).ToList();
             return cities;
         }
 
@@ -41,8 +30,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
             await weatherPage.LoadPageAsync();
 
             var weatherData = weatherPage.GetWeather();
-            return weatherData.Select(w => new Weather
-                {TempDay = w.TempDay, TempNight = w.TempNight, WeatherComment = w.Comment});
+            return weatherData.Select(w => new Domain.Models.Weather(w.Date, w.TempDay, w.TempNight, w.Comment));
         }
     }
 }

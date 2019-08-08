@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WeatherGrabber.Domain.Contracts;
 using WeatherGrabber.Domain.Models;
+using WeatherGrabber.Infrastructure.Repositories;
 using WeatherGrabber.Infrastructure.Services.Yandex;
 
 namespace WeatherGrabber.App
@@ -15,32 +16,9 @@ namespace WeatherGrabber.App
     {
         static void Main(string[] args)
         {
-            RunAsync().GetAwaiter().GetResult();
-
-            Console.ReadLine();
-        }
-
-        static async Task RunAsync()
-        {
             IWeatherProviderService weatherProvider = new YandexService();
-
-            try
-            {
-                var cities = await weatherProvider.GetCitiesAsync();
-                var weatherData = new List<IEnumerable<Weather>>();
-                foreach (var city in cities)
-                {
-                    var data = await weatherProvider.GetWeatherAsync(city.WeatherUrl);
-                    weatherData.Add(data);
-                }
-                
-                var a = 5;
-
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-            }
+            ICityWeatherInfoRepository infoRepository = new CityWeatherInfoRepository();
+            var app = new Application(weatherProvider, infoRepository);
 
             Console.ReadLine();
         }

@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ICityWeatherInfoRepository.cs" />
+    <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IWeatherProviderService.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityWeatherInfo.cs" />
