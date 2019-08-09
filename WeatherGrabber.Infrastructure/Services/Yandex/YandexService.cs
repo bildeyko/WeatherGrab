@@ -10,8 +10,13 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
 {
     public class YandexService : Domain.Contracts.IWeatherProviderService
     {
-        private Uri _baseUri = new Uri("https://yandex.ru/");
-        private IRequestProvider _requestProvider = new RequestProvider();
+        private readonly Uri _baseUri = new Uri("https://yandex.ru/");
+        private readonly IRequestProvider _requestProvider;
+
+        public YandexService(IRequestProvider requestProvider)
+        {
+            _requestProvider = requestProvider;
+        }
 
         public async Task<IEnumerable<Domain.Models.City>> GetCitiesAsync()
         {
@@ -22,7 +27,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
                 await mainPage.LoadPageAsync();
 
                 var siteCities = mainPage.GetCities();
-                var cities = siteCities.Select(c => new Domain.Models.City(c.Name, c.Href)).ToList();
+                var cities = siteCities.Select(c => new Domain.Models.City(c.Name, new Uri(_baseUri, c.Href).ToString())).ToList();
                 return cities;
             }
             catch (Exception e)
@@ -33,10 +38,14 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
 
         public async Task<IEnumerable<Domain.Models.Weather>> GetWeatherAsync(string cityUrl)
         {
+            if (cityUrl == null)
+            {
+                throw new ArgumentNullException(nameof(cityUrl));
+            }
+
             try
             {
-                var url = new Uri(_baseUri, cityUrl);
-                var weatherPage = new WeatherPage(url, _requestProvider);
+                var weatherPage = new WeatherPage(new Uri(cityUrl), _requestProvider);
                 await weatherPage.LoadPageAsync();
 
                 var weatherData = weatherPage.GetWeather();

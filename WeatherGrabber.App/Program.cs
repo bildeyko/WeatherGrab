@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using WeatherGrabber.Domain.Contracts;
 using WeatherGrabber.Domain.Models;
+using WeatherGrabber.Infrastructure;
 using WeatherGrabber.Infrastructure.Repositories;
 using WeatherGrabber.Infrastructure.Services.Yandex;
 
@@ -16,7 +17,7 @@ namespace WeatherGrabber.App
     {
         static void Main(string[] args)
         {
-            IWeatherProviderService weatherProvider = new YandexService();
+            IWeatherProviderService weatherProvider = new YandexService(new RequestProvider());
             ICityWeatherInfoRepository infoRepository = new CityWeatherInfoRepository();
             var app = new Application(weatherProvider, infoRepository);
 
