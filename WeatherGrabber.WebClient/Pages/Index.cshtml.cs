@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WeatherGrabber.WebClient.Services.WeatherGrabber;
 using WeatherGrabber.WebClient.Services.WeatherGrabber.DTO;
+using WeatherGrabber.WebClient.ViewModels;
 
 namespace WeatherGrabber.WebClient.Pages
 {
@@ -18,12 +19,20 @@ namespace WeatherGrabber.WebClient.Pages
             _weatherService = weatherService;
         }
 
-        public IList<CityWeatherInfo> Cities { get; set; }
-        public CityWeatherInfo SelectedCity { get; set; }
+        public IList<CityWeatherInfoViewModel> Cities { get; set; }
+        public CityWeatherInfoViewModel SelectedCity { get; set; }
 
         public async Task OnGet(int? id)
         {
-            Cities = await _weatherService.GetCitiesAsync();
+            var cities = await _weatherService.GetCitiesAsync();
+            Cities = cities.Select(c => new CityWeatherInfoViewModel
+            {
+                CityId = c.CityId,
+                Name = c.Name,
+                TempDay = c.TempDay,
+                TempNight = c.TempNight,
+                WeatherComment = c.WeatherComment
+            }).ToList();
             if (id != null)
             {
                 SelectedCity = Cities.FirstOrDefault(c => c.CityId == id.Value);

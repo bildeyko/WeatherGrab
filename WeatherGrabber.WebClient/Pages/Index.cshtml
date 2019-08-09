@@ -19,8 +19,8 @@
         @if (Model.SelectedCity != null)
         {
             <h3>Погода на завтра в городе @Model.SelectedCity.Name:</h3>
-            <p>днем @Model.SelectedCity.TempDay</p>
-            <p>ночью @Model.SelectedCity.TempNight</p>
+            <p>днем @Model.SelectedCity.TempDayBeauty°</p>
+            <p>ночью @Model.SelectedCity.TempNightBeauty°</p>
             <p>@Model.SelectedCity.WeatherComment</p>
         }
         else

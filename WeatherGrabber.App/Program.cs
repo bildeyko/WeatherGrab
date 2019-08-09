@@ -21,6 +21,8 @@ namespace WeatherGrabber.App
             var app = new Application(weatherProvider, infoRepository);
 
             Console.ReadLine();
+            // Нет особого смысла вызывать здесь Dispose
+            app.Dispose();
         }
     }
 }
