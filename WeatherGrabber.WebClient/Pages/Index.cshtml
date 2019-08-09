@@ -1,0 +1,29 @@
+﻿@page "{id:int?}"
+@model IndexModel
+@{
+    ViewData["Title"] = "Погода на завтра";
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="btn-group-vertical" role="group" aria-label="Города">
+            @foreach (var city in Model.Cities)
+            {
+                <button type="submit" value="@city.CityId" name="CityId" class="btn get-weather-btn">@Html.DisplayFor(modelItem => city.Name)</button>
+            }
+        </div>
+    </div>
+    <div class="col-md-4">
+        @if (Model.SelectedCity != null)
+        {
+            <h3>Погода на завтра в городе @Model.SelectedCity.Name:</h3>
+            <p>днем @Model.SelectedCity.TempDay</p>
+            <p>ночью @Model.SelectedCity.TempNight</p>
+            <p>@Model.SelectedCity.WeatherComment</p>
+        }
+        else
+        {
+            <h3>Выберите город</h3>
+        }
+    </div>
+</div>
