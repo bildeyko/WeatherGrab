@@ -76,6 +76,13 @@ namespace WeatherGrabber.App
                             continue;
                         }
 
+                        if (weatherForCity.TempDay == weatherOnDate.TempDay
+                            && weatherForCity.TempNight == weatherOnDate.TempNight
+                            && weatherForCity.WeatherComment == weatherOnDate.WeatherComment)
+                        {
+                            continue;
+                        }
+
                         weatherForCity.TempDay = weatherOnDate.TempDay;
                         weatherForCity.TempNight = weatherOnDate.TempNight;
                         weatherForCity.WeatherComment = weatherOnDate.WeatherComment;
