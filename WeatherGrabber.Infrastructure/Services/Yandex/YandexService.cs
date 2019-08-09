@@ -11,13 +11,14 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
     public class YandexService : Domain.Contracts.IWeatherProviderService
     {
         private Uri _baseUri = new Uri("https://yandex.ru/");
+        private IRequestProvider _requestProvider = new RequestProvider();
 
         public async Task<IEnumerable<Domain.Models.City>> GetCitiesAsync()
         {
             try
             {
                 var url = new Uri(_baseUri,"pogoda/");
-                var mainPage = new MainPage(url);
+                var mainPage = new MainPage(url, _requestProvider);
                 await mainPage.LoadPageAsync();
 
                 var siteCities = mainPage.GetCities();
@@ -35,7 +36,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
             try
             {
                 var url = new Uri(_baseUri, cityUrl);
-                var weatherPage = new WeatherPage(url);
+                var weatherPage = new WeatherPage(url, _requestProvider);
                 await weatherPage.LoadPageAsync();
 
                 var weatherData = weatherPage.GetWeather();

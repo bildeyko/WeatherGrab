@@ -10,7 +10,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex.Pages
 {
     public class MainPage : BasePage
     {
-        public MainPage(Uri pageUrl) : base(pageUrl)
+        public MainPage(Uri pageUrl, IRequestProvider requestProvider) : base(pageUrl, requestProvider)
         { }
 
         public IEnumerable<City> GetCities()

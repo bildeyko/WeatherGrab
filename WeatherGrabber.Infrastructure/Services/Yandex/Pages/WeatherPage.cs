@@ -9,7 +9,7 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex.Pages
 {
     public class WeatherPage : BasePage
     {
-        public WeatherPage(Uri pageUrl) : base(pageUrl)
+        public WeatherPage(Uri pageUrl, IRequestProvider requestProvider) : base(pageUrl, requestProvider)
         {
         }
 

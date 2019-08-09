@@ -69,7 +69,9 @@
     <Compile Include="Repositories\CityWeatherInfoContext.cs" />
     <Compile Include="Repositories\CityWeatherInfoRepository.cs" />
     <Compile Include="Repositories\Models\CityWeatherInfo.cs" />
+    <Compile Include="IRequestProvider.cs" />
     <Compile Include="Services\Yandex\Pages\Items\Weather.cs" />
+    <Compile Include="RequestProvider.cs" />
     <Compile Include="Services\Yandex\YandexService.cs" />
     <Compile Include="Services\Yandex\Pages\BasePage.cs" />
     <Compile Include="Services\Yandex\Pages\Items\City.cs" />
