@@ -6,14 +6,12 @@
 
 <div class="row">
     <div class="col-xs-4">
-        @*<div class="center-block">*@
-            <div class="btn-group-vertical center-block" role="group" aria-label="Города">
-                @foreach (var city in Model.Cities)
-                {
-                    <button type="submit" value="@city.CityId" name="CityId" class="btn btn-default get-weather-btn">@Html.DisplayFor(modelItem => city.Name)</button>
-                }
-            </div>
-        @*</div>*@
+        <div class="btn-group-vertical center-block" role="group" aria-label="Города">
+            @foreach (var city in Model.Cities)
+            {
+                <button type="submit" value="@city.CityId" name="CityId" class="btn btn-default get-weather-btn">@Html.DisplayFor(modelItem => city.Name)</button>
+            }
+        </div>
     </div>
     <div class="col-xs-6">
         @if (Model.SelectedCity != null)
