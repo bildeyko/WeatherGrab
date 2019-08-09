@@ -6,9 +6,6 @@ namespace WeatherGrabber.Domain.Contracts
 {
     public interface IWeatherProviderService
     {
-        //List<City> GetCities();
-        //Weather GetWeather(string url);
-
         Task<IEnumerable<City>> GetCitiesAsync();
         Task<IEnumerable<Weather>> GetWeatherAsync(string cityUrl);
     }

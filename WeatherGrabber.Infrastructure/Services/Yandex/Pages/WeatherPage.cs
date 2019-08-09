@@ -25,6 +25,12 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex.Pages
             var dayTempNodes = Content.DocumentNode.SelectNodes("//div[@class='swiper-wrapper']//div[contains(@class, 'temp_day')]//span[contains(@class, 'temp__value')]/text()");
             var nightTempNodes = Content.DocumentNode.SelectNodes("//div[@class='swiper-wrapper']//div[contains(@class, 'temp_night')]//span[contains(@class, 'temp__value')]/text()");
             var commentTempNodes = Content.DocumentNode.SelectNodes("//div[@class='swiper-wrapper']//div[@class='forecast-briefly__condition']/text()");
+
+            if (datesNodes == null || dayTempNodes == null
+                || nightTempNodes == null || commentTempNodes == null)
+            {
+                return weather;
+            }
             for (int i = 0; i < datesNodes.Count; i++)
             {
                 var tempDayStr = dayTempNodes[i].InnerText;

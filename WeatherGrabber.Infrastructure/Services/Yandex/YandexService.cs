@@ -14,23 +14,37 @@ namespace WeatherGrabber.Infrastructure.Services.Yandex
 
         public async Task<IEnumerable<Domain.Models.City>> GetCitiesAsync()
         {
-            var url = new Uri(_baseUri,"pogoda/");
-            var mainPage = new MainPage(url);
-            await mainPage.LoadPageAsync();
+            try
+            {
+                var url = new Uri(_baseUri,"pogoda/");
+                var mainPage = new MainPage(url);
+                await mainPage.LoadPageAsync();
 
-            var siteCities = mainPage.GetCities();
-            var cities = siteCities.Select(c => new Domain.Models.City(c.Name, c.Href)).ToList();
-            return cities;
+                var siteCities = mainPage.GetCities();
+                var cities = siteCities.Select(c => new Domain.Models.City(c.Name, c.Href)).ToList();
+                return cities;
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.WeatherProviderServiceException(e.Message, e);
+            }
         }
 
         public async Task<IEnumerable<Domain.Models.Weather>> GetWeatherAsync(string cityUrl)
         {
-            var url = new Uri(_baseUri, cityUrl);
-            var weatherPage = new WeatherPage(url);
-            await weatherPage.LoadPageAsync();
+            try
+            {
+                var url = new Uri(_baseUri, cityUrl);
+                var weatherPage = new WeatherPage(url);
+                await weatherPage.LoadPageAsync();
 
-            var weatherData = weatherPage.GetWeather();
-            return weatherData.Select(w => new Domain.Models.Weather(w.Date, w.TempDay, w.TempNight, w.Comment));
+                var weatherData = weatherPage.GetWeather();
+                return weatherData.Select(w => new Domain.Models.Weather(w.Date, w.TempDay, w.TempNight, w.Comment));
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.WeatherProviderServiceException(e.Message, e);
+            }
         }
     }
 }

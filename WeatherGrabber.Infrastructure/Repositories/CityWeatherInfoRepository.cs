@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using WeatherGrabber.Infrastructure.Repositories.Models;
@@ -12,83 +13,118 @@ namespace WeatherGrabber.Infrastructure.Repositories
 
         public IEnumerable<Domain.Models.CityWeatherInfo> GetAll()
         {
-            using (var context = new CityWeatherInfoContext())
+            try
             {
-                return context.Cities.Select(c => new Domain.Models.CityWeatherInfo
+                using (var context = new CityWeatherInfoContext())
                 {
-                    CityId = c.CityId,
-                    Name = c.Name,
-                    TempDay = c.TempDay,
-                    TempNight = c.TempNight,
-                    WeatherComment = c.WeatherComment
-                }).ToList();
+                    return context.Cities.Select(c => new Domain.Models.CityWeatherInfo
+                    {
+                        CityId = c.CityId,
+                        Name = c.Name,
+                        TempDay = c.TempDay,
+                        TempNight = c.TempNight,
+                        WeatherComment = c.WeatherComment
+                    }).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.CityWeatherInfoRepositoryException(e.Message, e);
             }
         }
 
         public Domain.Models.CityWeatherInfo Get(int id)
         {
-            using (var context = new CityWeatherInfoContext())
+            try
             {
-                var c = context.Cities.Find(id);
-                if (c == null)
+                using (var context = new CityWeatherInfoContext())
                 {
-                    return null;
-                }
+                    var c = context.Cities.Find(id);
+                    if (c == null)
+                    {
+                        return null;
+                    }
 
-                return new Domain.Models.CityWeatherInfo
-                {
-                    CityId = c.CityId,
-                    Name = c.Name,
-                    TempDay = c.TempDay,
-                    TempNight = c.TempNight,
-                    WeatherComment = c.WeatherComment
-                };
+                    return new Domain.Models.CityWeatherInfo
+                    {
+                        CityId = c.CityId,
+                        Name = c.Name,
+                        TempDay = c.TempDay,
+                        TempNight = c.TempNight,
+                        WeatherComment = c.WeatherComment
+                    };
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.CityWeatherInfoRepositoryException(e.Message, e);
             }
         }
 
         public void Create(Domain.Models.CityWeatherInfo item)
         {
-            using (var context = new CityWeatherInfoContext())
+            try
             {
-                var daoModel = new CityWeatherInfo
+                using (var context = new CityWeatherInfoContext())
                 {
-                    CityId = item.CityId,
-                    Name = item.Name,
-                    TempDay = item.TempDay,
-                    TempNight = item.TempNight,
-                    WeatherComment = item.WeatherComment
-                };
-                context.Cities.Add(daoModel);
-                context.SaveChanges();
+                    var daoModel = new CityWeatherInfo
+                    {
+                        CityId = item.CityId,
+                        Name = item.Name,
+                        TempDay = item.TempDay,
+                        TempNight = item.TempNight,
+                        WeatherComment = item.WeatherComment
+                    };
+                    context.Cities.Add(daoModel);
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.CityWeatherInfoRepositoryException(e.Message, e);
             }
         }
 
         public void Update(Domain.Models.CityWeatherInfo item)
         {
-            using (var context = new CityWeatherInfoContext())
+            try
             {
-                var daoModel = new CityWeatherInfo
+                using (var context = new CityWeatherInfoContext())
                 {
-                    CityId = item.CityId,
-                    Name = item.Name,
-                    TempDay = item.TempDay,
-                    TempNight = item.TempNight,
-                    WeatherComment = item.WeatherComment
-                };
-                context.Entry(daoModel).State = EntityState.Modified;
-                context.SaveChanges();
+                    var daoModel = new CityWeatherInfo
+                    {
+                        CityId = item.CityId,
+                        Name = item.Name,
+                        TempDay = item.TempDay,
+                        TempNight = item.TempNight,
+                        WeatherComment = item.WeatherComment
+                    };
+                    context.Entry(daoModel).State = EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.CityWeatherInfoRepositoryException(e.Message, e);
             }
         }
 
         public void Delete(int id)
         {
-            using (var context = new CityWeatherInfoContext())
+            try
             {
-                var info = context.Cities.Find(id);
-                if (info != null)
+                using (var context = new CityWeatherInfoContext())
                 {
-                    context.Cities.Remove(info);
+                    var info = context.Cities.Find(id);
+                    if (info != null)
+                    {
+                        context.Cities.Remove(info);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                throw new Domain.Exceptions.CityWeatherInfoRepositoryException(e.Message, e);
             }
         }
     }

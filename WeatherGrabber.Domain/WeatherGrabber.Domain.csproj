@@ -44,6 +44,8 @@
     <Compile Include="Contracts\ICityWeatherInfoRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\IWeatherProviderService.cs" />
+    <Compile Include="Exceptions\CityWeatherInfoRepositoryException.cs" />
+    <Compile Include="Exceptions\WeatherProviderServiceException.cs" />
     <Compile Include="Models\City.cs" />
     <Compile Include="Models\CityWeatherInfo.cs" />
     <Compile Include="Models\Weather.cs" />
