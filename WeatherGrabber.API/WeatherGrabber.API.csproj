@@ -68,8 +68,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTO\CitiesResponse.cs" />
-    <Compile Include="DTO\CityWeatherInfo.cs" />
+    <Compile Include="DTO\CitiesResponseDTO.cs" />
+    <Compile Include="DTO\CityWeatherInfoDTO.cs" />
+    <Compile Include="DTO\ErrorDTO.cs" />
     <Compile Include="WeatherService.svc.cs">
       <DependentUpon>WeatherService.svc</DependentUpon>
     </Compile>

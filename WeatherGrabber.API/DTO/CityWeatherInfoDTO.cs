@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace WeatherGrabber.API.DTO
 {
     [DataContract]
-    public class CityWeatherInfo
+    public class CityWeatherInfoDTO
     {
         [DataMember]
         public int CityId { get; set; }

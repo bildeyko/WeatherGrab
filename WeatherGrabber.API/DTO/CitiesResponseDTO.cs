@@ -7,9 +7,9 @@ using System.Web;
 namespace WeatherGrabber.API.DTO
 {
     [DataContract]
-    public class CitiesResponse
+    public class CitiesResponseDTO
     {
         [DataMember]
-        public List<CityWeatherInfo> Cities { get; set; } = new List<CityWeatherInfo>();
+        public List<CityWeatherInfoDTO> Cities { get; set; } = new List<CityWeatherInfoDTO>();
     }
 }

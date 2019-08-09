@@ -9,6 +9,6 @@ namespace WeatherGrabber.API
     {
         [WebGet(UriTemplate = "Cities", ResponseFormat = WebMessageFormat.Json)]
         [OperationContract]
-        CitiesResponse GetCities();
+        CitiesResponseDTO GetCities();
     }
 }
