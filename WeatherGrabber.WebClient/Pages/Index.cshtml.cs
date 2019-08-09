@@ -17,22 +17,32 @@ namespace WeatherGrabber.WebClient.Pages
         public IndexModel(IWeatherGrabberService weatherService)
         {
             _weatherService = weatherService;
+            Cities = new List<CityWeatherInfoViewModel>();
         }
 
         public IList<CityWeatherInfoViewModel> Cities { get; set; }
         public CityWeatherInfoViewModel SelectedCity { get; set; }
+        public string ServiceStatus { get; set; }
 
         public async Task OnGet(int? id)
         {
-            var cities = await _weatherService.GetCitiesAsync();
-            Cities = cities.Select(c => new CityWeatherInfoViewModel
+            try
             {
-                CityId = c.CityId,
-                Name = c.Name,
-                TempDay = c.TempDay,
-                TempNight = c.TempNight,
-                WeatherComment = c.WeatherComment
-            }).ToList();
+                var cities = await _weatherService.GetCitiesAsync();
+                Cities = cities.Select(c => new CityWeatherInfoViewModel
+                {
+                    CityId = c.CityId,
+                    Name = c.Name,
+                    TempDay = c.TempDay,
+                    TempNight = c.TempNight,
+                    WeatherComment = c.WeatherComment
+                }).ToList();
+            }
+            catch (WeatherGrabberUnavailableException)
+            {
+                ServiceStatus = "Сервис с данными о погоде недоступен";
+            }
+
             if (id != null)
             {
                 SelectedCity = Cities.FirstOrDefault(c => c.CityId == id.Value);

@@ -21,14 +21,27 @@ namespace WeatherGrabber.WebClient.Services.WeatherGrabber
         {
             var route = $"/Cities";
 
-            using (var client = new HttpClient())
+            try
             {
-                var uri = new Uri(_host + route);
-                var response = await client.GetAsync(uri);
-                response.EnsureSuccessStatusCode();
-                var jsonResponse = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<CitiesResponse>(jsonResponse);
-                return result.Cities;
+                using (var client = new HttpClient())
+                {
+                    var uri = new Uri(_host + route);
+                    var response = await client.GetAsync(uri);
+                    response.EnsureSuccessStatusCode();
+                    var jsonResponse = await response.Content.ReadAsStringAsync();
+                    var result = JsonConvert.DeserializeObject<CitiesResponse>(jsonResponse);
+                    return result.Cities;
+                }
+            }
+            catch (HttpRequestException)
+            {
+                // в реальности еще логгировать
+                throw new WeatherGrabberUnavailableException();
+            }
+            catch (Exception e)
+            {
+                // в реальности еще логгировать
+                throw new WeatherGrabberException(e.Message, e);
             }
         }
     }

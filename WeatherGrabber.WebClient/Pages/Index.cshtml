@@ -5,25 +5,34 @@
 }
 
 <div class="row">
-    <div class="col-xs-4">
-        <div class="btn-group-vertical center-block" role="group" aria-label="Города">
-            @foreach (var city in Model.Cities)
+    @if (Model.Cities.Count == 0)
+    {
+        <div class="alert alert-danger">
+            <strong>Ох!</strong> @Model.ServiceStatus
+        </div>
+    }
+    else
+    {
+        <div class="col-xs-4">
+            <div class="btn-group-vertical center-block" role="group" aria-label="Города">
+                @foreach (var city in Model.Cities)
+                {
+                    <button type="submit" value="@city.CityId" name="CityId" class="btn btn-default get-weather-btn">@Html.DisplayFor(modelItem => city.Name)</button>
+                }
+            </div>
+        </div>
+        <div class="col-xs-6">
+            @if (Model.SelectedCity != null)
             {
-                <button type="submit" value="@city.CityId" name="CityId" class="btn btn-default get-weather-btn">@Html.DisplayFor(modelItem => city.Name)</button>
+                <h3>Погода на завтра в городе @Model.SelectedCity.Name:</h3>
+                <p>днем @Model.SelectedCity.TempDayBeauty°</p>
+                <p>ночью @Model.SelectedCity.TempNightBeauty°</p>
+                <p>@Model.SelectedCity.WeatherComment</p>
+            }
+            else
+            {
+                <h3>Выберите город</h3>
             }
         </div>
-    </div>
-    <div class="col-xs-6">
-        @if (Model.SelectedCity != null)
-        {
-            <h3>Погода на завтра в городе @Model.SelectedCity.Name:</h3>
-            <p>днем @Model.SelectedCity.TempDayBeauty°</p>
-            <p>ночью @Model.SelectedCity.TempNightBeauty°</p>
-            <p>@Model.SelectedCity.WeatherComment</p>
-        }
-        else
-        {
-            <h3>Выберите город</h3>
-        }
-    </div>
+    }
 </div>
