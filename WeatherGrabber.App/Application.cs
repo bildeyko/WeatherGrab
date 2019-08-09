@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using WeatherGrabber.Domain.Contracts;
+using WeatherGrabber.Domain.Exceptions;
 using WeatherGrabber.Domain.Models;
 
 namespace WeatherGrabber.App
@@ -84,6 +85,18 @@ namespace WeatherGrabber.App
 
                     Console.WriteLine($"Added: {addedCities}, Updated:{updatedCities}");
                     ct.WaitHandle.WaitOne(sleepPeriod);
+                }
+                catch (CityWeatherInfoRepositoryException e)
+                {
+                    Console.WriteLine("Database Error");
+                    Console.WriteLine(e.ToString());
+                    break;
+                }
+                catch (WeatherProviderServiceException e)
+                {
+                    Console.WriteLine("Weather provider Error");
+                    Console.WriteLine(e.ToString());
+                    break;
                 }
                 catch (OperationCanceledException)
                 {
