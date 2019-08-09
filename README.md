@@ -15,7 +15,7 @@
 
 Уровень приложения. Конслольно приложение-граббер. Периодически запрашивает доступные города и записывает в базу. Если в базе уже есть город, и изменился прогноз, обновляет его.
 
-> Перед запуском необходимо настроить `sqlConnectionString` в **App.config**
+:exclamation: Перед запуском необходимо настроить `sqlConnectionString` в **App.config**
 
 ### WeatherGrabber.API
 
@@ -23,10 +23,10 @@
 Предоставляет только 1 ресурс:  
 `/cities` – запрос всех город с информацией.
 
-> Перед запуском необходимо настроить `sqlConnectionString` в **Web.config**
+:exclamation: Перед запуском необходимо настроить `sqlConnectionString` в **Web.config**
 
 ### WeatherGrabber.WebClient
 
 Элементарный клиент на Razor Pages. Выводит список доступных городов и показывает прогноз для выбранного города.
 
-> Перед запуском необходимо настроить `WeatherGrabberService` в **appsettings.json**
+:exclamation: Перед запуском необходимо настроить `WeatherGrabberService` в **appsettings.json**
