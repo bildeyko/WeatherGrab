@@ -28,6 +28,8 @@
 
 ### WeatherGrabber.WebClient
 
-Элементарный клиент на Razor Pages. Выводит список доступных городов и показывает прогноз для выбранного города.
+[Очень простой клиент](https://i.imgur.com/SBLV96V.png) на Razor Pages. Выводит список доступных городов и показывает прогноз для выбранного города.
 
 :exclamation: Перед запуском необходимо настроить `WeatherGrabberService` в **appsettings.json**
+
+
