@@ -74,7 +74,7 @@
     <Compile Include="WeatherService.svc.cs">
       <DependentUpon>WeatherService.svc</DependentUpon>
     </Compile>
-    <Compile Include="WeatherService.cs" />
+    <Compile Include="IWeatherService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
